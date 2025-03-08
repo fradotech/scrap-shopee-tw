@@ -3,23 +3,13 @@ const { chromium } = require("playwright");
 const proxies = [
   {
     server: "http://brd.superproxy.io:33335",
-    username: "brd-customer-hl_155f2a69-zone-web_unlocker1",
-    password: "z7efosqp13v1",
+    username: "brd-customer-hl_64c8f60b-zone-web_unlocker1",
+    password: "42f2zztou1zt",
   },
   {
     server: "http://brd.superproxy.io:33335",
-    username: "brd-customer-hl_155f2a69-zone-web_unlocker2",
-    password: "hztios8y76y4",
-  },
-  {
-    server: "http://brd.superproxy.io:33335",
-    username: "brd-customer-hl_155f2a69-zone-web_unlocker3",
-    password: "7fdj6mupjzx6",
-  },
-  {
-    server: "http://brd.superproxy.io:33335",
-    username: "brd-customer-hl_155f2a69-zone-web_unlocker4",
-    password: "zdf3m01zk137",
+    username: "brd-customer-hl_64c8f60b-zone-web_unlocker2",
+    password: "s4d75qgb5kme",
   },
 ];
 
