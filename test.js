@@ -6,13 +6,13 @@ chromium.use(StealthPlugin());
 const proxies = [
   {
     server: "http://brd.superproxy.io:33335",
-    username: "brd-customer-hl_1242c475-zone-web_unlocker1",
-    password: "l4ml5gmir3v0",
+    username: "brd-customer-hl_3f82f1a4-zone-web_unlocker1",
+    password: "vn0pphksr0sh",
   },
   {
     server: "http://brd.superproxy.io:33335",
-    username: "brd-customer-hl_1242c475-zone-web_unlocker2",
-    password: "ckoec3vy4eks",
+    username: "brd-customer-hl_3f82f1a4-zone-web_unlocker2",
+    password: "0w4lhi3it6dg",
   },
 ];
 
@@ -27,7 +27,6 @@ function delay(min, max) {
   });
 }
 
-// Random integer between min and max (inclusive)
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -37,7 +36,7 @@ const test = async () => {
   console.log(`Using proxy: ${proxy.server} with username: ${proxy.username}`);
 
   const browser = await chromium.launch({
-    headless: false, // Try with headless:false first to see what's happening
+    headless: false,
     proxy: proxy,
     timeout: 6000000,
     args: [
@@ -73,7 +72,6 @@ const test = async () => {
     userAgents[Math.floor(Math.random() * userAgents.length)];
   console.log(`\nUsing user-agent: ${selectedUserAgent}`);
 
-  // Set up context with more realistic browser fingerprinting
   const context = await browser.newContext({
     ignoreHTTPSErrors: true,
     userAgent: selectedUserAgent,
@@ -88,7 +86,6 @@ const test = async () => {
     javaScriptEnabled: true,
     colorScheme: Math.random() > 0.5 ? "dark" : "light",
     acceptDownloads: true,
-    // Add additional headers to make the request look more legitimate
     extraHTTPHeaders: {
       Accept:
         "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
@@ -103,7 +100,6 @@ const test = async () => {
     },
   });
 
-  // Create cookie jar to handle cookies properly
   await context.addCookies([
     {
       name: "SPC_SI",
@@ -135,7 +131,6 @@ const test = async () => {
     "thermal bottle",
   ];
 
-  // Event handlers
   page.on("console", (msg) => console.log(`Browser console: ${msg.text()}`));
 
   page.on("response", async (response) => {
@@ -146,7 +141,6 @@ const test = async () => {
   });
 
   try {
-    // First visit Shopee homepage to set initial cookies
     console.log("\nVisiting Shopee homepage...");
     await page.goto("https://shopee.tw/", {
       waitUntil: "domcontentloaded",
@@ -166,10 +160,8 @@ const test = async () => {
       console.log("No popup detected or failed to close popup");
     }
 
-    // Normal browsing behavior before search
     await simulateNormalBrowsing(page);
 
-    // Now perform the search
     const randomSearchTerm =
       searchTerms[Math.floor(Math.random() * searchTerms.length)];
     console.log(`Searching for: ${randomSearchTerm}`);
@@ -186,7 +178,6 @@ const test = async () => {
 
     await delay(5000, 8000);
 
-    // Hover over some products before clicking
     const items = await page.$$(".shopee-search-item-result__item");
     if (items.length > 0) {
       const randomIndexes = [
@@ -237,7 +228,6 @@ const test = async () => {
 async function simulateNormalBrowsing(page) {
   console.log("Simulating normal browsing behavior...");
 
-  // Random mouse movements
   for (let i = 0; i < getRandomInt(3, 6); i++) {
     await page.mouse.move(
       getRandomInt(0, page.viewportSize().width),
@@ -247,13 +237,11 @@ async function simulateNormalBrowsing(page) {
     await delay(500, 1500);
   }
 
-  // Random scrolling pattern
   for (let i = 0; i < getRandomInt(4, 8); i++) {
     const scrollAmount = getRandomInt(100, 500);
     await page.mouse.wheel(0, scrollAmount);
     await delay(1000, 3000);
 
-    // Sometimes scroll back up
     if (Math.random() > 0.7) {
       await page.mouse.wheel(0, -getRandomInt(50, 150));
       await delay(800, 1500);
@@ -264,11 +252,9 @@ async function simulateNormalBrowsing(page) {
 async function simulateProductPageInteraction(page) {
   console.log("Simulating product page interaction...");
 
-  // Scroll to view product details
   await page.evaluate(() => window.scrollBy(0, 300));
   await delay(1000, 2000);
 
-  // Try to view product images if they exist
   try {
     const productImages = await page.$$('div[class*="product-image"] img');
     if (productImages.length > 0) {
@@ -281,14 +267,11 @@ async function simulateProductPageInteraction(page) {
     console.log("Could not interact with product images");
   }
 
-  // Scroll to reviews if they exist
   await page.evaluate(() => window.scrollBy(0, 600));
   await delay(2000, 3500);
 
-  // Scroll back up randomly
   await page.evaluate(() => window.scrollBy(0, -200));
   await delay(1000, 2000);
 }
 
-// Run the test
 test();
