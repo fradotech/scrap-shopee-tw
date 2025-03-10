@@ -1,8 +1,0 @@
-{
-  "url": "https://shopee.tw/api/v4/pdp/get_pc?item_id=22577587881&shop_id=1014505717&tz_offset_minutes=420&detail_level=0&",
-  "error": {
-    "success": false,
-    "message": "Invalid token",
-    "data": null
-  }
-}

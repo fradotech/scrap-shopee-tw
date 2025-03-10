@@ -16,6 +16,7 @@
     "playwright": "^1.51.0",
     "playwright-extra": "^4.3.6",
     "playwright-extra-stealth": "^0.0.1",
+    "puppeteer": "^24.4.0",
     "puppeteer-extra-plugin-stealth": "^2.11.2",
     "request": "^2.88.2"
   },
